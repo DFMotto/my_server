@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/illya/my_server/src/dbg.h
+stdio.h
+-
+errno.h
+-
+string.h
+-
+stdlib.h
+-
+
+/home/illya/my_server/src/error.h
+
+/home/illya/my_server/src/priority_queue.c
+priority_queue.h
+/home/illya/my_server/src/priority_queue.h
+
+/home/illya/my_server/src/priority_queue.h
+dbg.h
+/home/illya/my_server/src/dbg.h
+error.h
+/home/illya/my_server/src/error.h
+

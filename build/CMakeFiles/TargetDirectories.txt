@@ -1,0 +1,3 @@
+/home/illya/my_server/build/CMakeFiles/rebuild_cache.dir
+/home/illya/my_server/build/CMakeFiles/my_server.dir
+/home/illya/my_server/build/CMakeFiles/edit_cache.dir
