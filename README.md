@@ -1,5 +1,5 @@
 # my_server
-a simple static http server for starter
+
 运行：
 ```c++
 mkdir build 
