@@ -27,7 +27,9 @@ cmake ..
 make
 cd .. 
 ./build/my_server -c my_server.conf
-```
+```  
+成功运行服务器后打开浏览器，输入localhost:端口号 进入预设的网页  
+端口号可以通过my_server.conf来进行设置
 ## 并发测试
-使用webbench来进行测试
+使用webbench测试
 
