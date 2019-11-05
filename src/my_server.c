@@ -98,12 +98,9 @@ int main(int argc, char* argv[])
         return 0;
     }
 
-    /*
-    * 创建监听socket
-    */
+    //创建监听socket
     int listenfd;
     struct sockaddr_in clientaddr;
-    // initialize clientaddr and inlen to solve "accept Invalid argument" bug
     socklen_t inlen = 1;
     memset(&clientaddr, 0, sizeof(struct sockaddr_in));  
     
@@ -112,9 +109,7 @@ int main(int argc, char* argv[])
     rc = set_socket_non_blocking(listenfd);
     check(rc == 0, "make_socket_non_blocking");
 
-    /*
-    * create epoll and add listenfd to ep
-    */
+    //创建epoll和注册
     int epfd = my_epoll_create(0);
     struct epoll_event event;
     
@@ -126,14 +121,12 @@ int main(int argc, char* argv[])
     my_epoll_add(epfd, listenfd, &event);
 
     
-    //create thread pool
-    
-    
+    //创建线程池
     my_threadpool_t *tp = threadpool_init(cf.thread_num);
     check(tp != NULL, "threadpool_init error");
     
     
-     // initialize timer
+     //初始化计时器
     my_timer_init();
 
     log_info("my_server started.");
@@ -141,7 +134,7 @@ int main(int argc, char* argv[])
     int i, fd;
     int time;
 
-    /* epoll_wait loop */
+    //循环调用epoll_wait来进行处理
     while (1) {
         time = my_find_timer();
         debug("wait time = %d", time);
@@ -165,7 +158,6 @@ int main(int argc, char* argv[])
                     {
                         if ((errno == EAGAIN) || (errno == EWOULDBLOCK)) 
                         {
-                            /* we have processed all incoming connections */
                             break;
                         }
                         else 
@@ -192,7 +184,7 @@ int main(int argc, char* argv[])
 
                     my_epoll_add(epfd, infd, &event);
                     my_add_timer(request, TIMEOUT_DEFAULT, my_http_close_conn);//超时处理函数为关闭连接
-                }   // end of while of accept
+                }
 
             } 
             else
@@ -210,10 +202,10 @@ int main(int argc, char* argv[])
                 rc = threadpool_add(tp, do_request, events[i].data.ptr);
                 check(rc == 0, "threadpool_add");
 
-                //do_request(events[i].data.ptr);
+                
             }
-        }   //end of for
-    }   // end of while(1)
+        }   
+    }   
     
 
     
