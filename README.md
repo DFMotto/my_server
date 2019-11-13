@@ -13,7 +13,8 @@
 ### 线程池的部分实现细节
 根据配置文件my_server.config中的数据进行初始化，创建一个线程池对象，并且维护条件变量，互斥锁，一个任务队列以及所有工作线程。任务队列用以存放待运行的任务函数入口。当任务队列不为空时会通过条件变量唤醒阻塞中的线程。对于公共资源的读写要注意加锁，避免产生竞争。
 ### epoll的模式选择
-https://blog.csdn.net/eyucham/article/details/86502117 参考这位大佬的博客，为什么要用ET和ONESHOT已经说的很明白了。
+https://blog.csdn.net/eyucham/article/details/86502117 
+ET真的比LT模式快吗？在初写这个项目时，我只是很盲目地看一些博客有了一个下意识地认为ET更快。但经过一些测试和深入之后，我感觉ET并没有明显比LT快。具体到这个项目中，在都读到EAGAIN的情况时，ET并没有显著快于LT
 ### RIO包相关
 参考自csapp第11章。注意要区分应用级缓冲和tcp socket缓冲区的区别。在通过socket进行数据传输时，首先是通过read/write将数据写入位于内核中的socket缓冲区，再通过socket进行发送/接收。
 ### http解析
